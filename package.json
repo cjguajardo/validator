@@ -1,5 +1,5 @@
 {
-  "name": "validator",
+  "name": "cgc-validator",
   "version": "1.0.0",
   "description": "Input validator",
   "main": "index.js",

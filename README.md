@@ -1,21 +1,60 @@
-# validator
-Input validator
+
+# Input validator
+
+Validador de formularios implementando reglas de validacion independientes para cada campo por tipo de dato.
 
 
 
 
-import validator from 'validator';
+## Installation
 
-const params = {
-  numericInput: "213jdjd",
-  stringInput: "Hola mundo"
-};
+Install cgc-validator with npm
 
-const rules = {
-  numericInput: 'required;type=number;alias=área',
-  stringInput: 'required;type=string;alias=mensaje',
-};
+```bash
+NPM
+  npm install cgc-validator
+```
+```bash
+YARN
+  yarn add cgc-validator
+```
+    
+## Usage/Examples
 
-const validation = validator(params, rules);
+```javascript
+import validator from 'cgc-validator'
 
-if (validation.success) {}
+function App() {
+
+    const postData = () => {
+
+        const params = { numericInput: "213jdjd", stringInput: "Hola mundo" };
+
+        const rules = { numericInput: 'required;type=number;alias=área', stringInput: 'required;type=string;alias=mensaje', };
+
+        const validation = validator(params, rules);
+
+        if (validation.success) {
+            // DO POST REQUEST
+        }
+        else {
+            // SND SOME MESSAGE
+        }
+    }
+
+    return <Component />
+}
+```
+
+
+## Documentation
+
+required: opcional
+type: [number,string] tipo de dato a validar
+alias: nombre del campo a mostrar en caso de error
+## Badges
+
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
+
+E
