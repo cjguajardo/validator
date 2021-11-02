@@ -38,7 +38,8 @@ export default function validator(params, rules, customErrorMessages = null) {
       }
     }
 
-    if (required) {
+
+    const validate = () => {
       if (
         typeof params[key] === "undefined" ||
         params[key] == null ||
@@ -59,6 +60,13 @@ export default function validator(params, rules, customErrorMessages = null) {
           }
         }
       }
+    };
+
+    if (required) {
+      validate();
+    }
+    else {
+      validate();
     }
   }
 
