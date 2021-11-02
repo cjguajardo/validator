@@ -1,0 +1,23 @@
+{
+  "name": "validator",
+  "version": "1.0.0",
+  "description": "Input validator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cjguajardo/validator.git"
+  },
+  "keywords": [
+    "input",
+    "validator"
+  ],
+  "author": "Carlos Guajardo Cornejo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cjguajardo/validator/issues"
+  },
+  "homepage": "https://github.com/cjguajardo/validator#readme"
+}
