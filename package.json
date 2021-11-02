@@ -14,8 +14,8 @@
     "input",
     "validator"
   ],
-  "author": "Carlos Guajardo Cornejo",
-  "license": "MIT",
+  "author": "Carlos Guajardo Cornejo <cj.guajardo@cgcapps.cl>",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/cjguajardo/validator/issues"
   },
