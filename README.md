@@ -26,23 +26,25 @@ import validator from 'cgc-validator'
 
 function App() {
 
-    const postData = () => {
+  const postData = () => {
 
-        const params = { numericInput: "213jdjd", stringInput: "Hola mundo" };
+    const params = { numericInput: "213jdjd", stringInput: "Hola mundo" };
+    const rules = { 
+      numericInput: 'required;type=number;alias=área', 
+      stringInput: 'required;type=string;alias=mensaje', 
+    };
 
-        const rules = { numericInput: 'required;type=number;alias=área', stringInput: 'required;type=string;alias=mensaje', };
+    const validation = validator(params, rules);
 
-        const validation = validator(params, rules);
-
-        if (validation.success) {
-            // DO POST REQUEST
-        }
-        else {
-            // SND SOME MESSAGE
-        }
+    if (validation.success) {
+      // DO POST REQUEST
     }
+    else {
+      // SEND SOME MESSAGE
+    }
+  }
 
-    return <Component />
+  return <Component />
 }
 ```
 
@@ -50,7 +52,7 @@ function App() {
 ## Documentation
 
 required: opcional
-type: [number,string] tipo de dato a validar
+type: [number,string,any] tipo de dato a validar
 alias: nombre del campo a mostrar en caso de error
 ## Badges
 
