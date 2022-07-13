@@ -26,19 +26,20 @@ export default function validator(params, rules, customErrorMessages = null) {
   };
 
   const isValidDate = (value) => {
-    if (value.indexOf("-") !== -1) {
-      const parts = value.split("-");
+    //clean in case that the user has entered a date with time
+    const cleanValue = value.replace(/\//g, "-").split(" ")[0];
+    let date = null;
 
-      if (parts.length !== 3) return false;
+    const dmYFormat = /^\d{2}-\d{2}-\d{4}$/;
+    const YmdFormat = /^\d{4}-\d{2}-\d{2}$/;
 
-      const isValidYear =
-        parseInt(parts[0]) > 1900 && parseInt(parts[0]) < 2100;
-      const isValidMonth = parseInt(parts[1]) > 0 && parseInt(parts[1]) < 13;
-      const isValidDay = parseInt(parts[2]) > 0 && parseInt(parts[2]) < 32;
-
-      return isValidYear && isValidMonth && isValidDay;
+    if (dmYFormat.test(String(cleanValue))) {
+      const parts = cleanValue.split("-");
+      date = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+    } else if (YmdFormat.test(String(cleanValue))) {
+      date = new Date(cleanValue);
     }
-    return false;
+    return date && !isNaN(date.getTime());
   };
 
   const isValidRut = (value) => {
@@ -53,7 +54,9 @@ export default function validator(params, rules, customErrorMessages = null) {
     let message = `Debe ingresar __KEY__`,
       required = false,
       alias = key,
+      _in = null,
       type = "any";
+    //in => in=string1|string2|string3
 
     //Obtener valores de reglas de validación
     if (rules[key].indexOf(";")) {
@@ -66,6 +69,8 @@ export default function validator(params, rules, customErrorMessages = null) {
           required = true;
         } else if (ruleAttribute.indexOf("type") == 0) {
           type = getRuleAttributeValue(ruleAttribute);
+        } else if (ruleAttribute.indexOf("in") == 0) {
+          _in = getRuleAttributeValue(ruleAttribute);
         }
       }
     }
@@ -99,9 +104,21 @@ export default function validator(params, rules, customErrorMessages = null) {
           if (type === "rut" && !isValidRut(params[key])) {
             message = `El valor ingresado para ${alias} no es el correcto. P.e: XXXXXXXX-X o XX.XXX.XXX-X`;
           }
+          if (type === "date" && !isValidDate(params[key])) {
+            message = `El valor ingresado para ${alias} no es el correcto.`;
+          }
 
           if (message) {
             messages[key] = message;
+            keys.push(key);
+          }
+        }
+        if (_in) {
+          const inValues = _in.toLowerCase().split("|");
+          if (!inValues.includes(params[key].toLowerCase())) {
+            messages[
+              key
+            ] = `El valor ingresado para ${alias} no es el correcto.`;
             keys.push(key);
           }
         }

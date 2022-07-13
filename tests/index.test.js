@@ -194,3 +194,117 @@ describe("check email input", () => {
     expect(validatorResult).toMatchObject(successfullResult);
   });
 });
+
+describe("check date input", () => {
+  test("check 2000-20-50 date format type=date,alias=fecha", () => {
+    const params = {
+        input: "2000-20-50",
+      },
+      rules = {
+        input: "type=date;alias=fecha",
+      },
+      customErrorMessages = null;
+
+    const expectedResult = {
+      messages: {
+        input: "El valor ingresado para fecha no es el correcto.",
+      },
+      keys: ["input"],
+      success: false,
+    };
+    const validatorResult = validator(params, rules, customErrorMessages);
+    expect(validatorResult).toMatchObject(expectedResult);
+  });
+  test("check 23/23/1984 date format type=date,alias=fecha", () => {
+    const params = {
+        input: "23/23/1984",
+      },
+      rules = {
+        input: "type=date;alias=fecha",
+      },
+      customErrorMessages = null;
+
+    const expectedResult = {
+      messages: {
+        input: "El valor ingresado para fecha no es el correcto.",
+      },
+      keys: ["input"],
+      success: false,
+    };
+    const validatorResult = validator(params, rules, customErrorMessages);
+    expect(validatorResult).toMatchObject(expectedResult);
+  });
+
+  test("check 2020-02-23 date format type=date,alias=fecha", () => {
+    const params = {
+        input: "2020-02-23",
+      },
+      rules = {
+        input: "type=date;alias=fecha",
+      },
+      customErrorMessages = null;
+
+    const validatorResult = validator(params, rules, customErrorMessages);
+    expect(validatorResult).toMatchObject(successfullResult);
+  });
+  test("check 2020-02-23 15:35:47 date format type=date,alias=fecha", () => {
+    const params = {
+        input: "2020-02-23 15:35:47",
+      },
+      rules = {
+        input: "type=date;alias=fecha",
+      },
+      customErrorMessages = null;
+
+    const validatorResult = validator(params, rules, customErrorMessages);
+    expect(validatorResult).toMatchObject(successfullResult);
+  });
+  test("check 23/02/2001 15:35:47 date format type=date,alias=fecha", () => {
+    const params = {
+        input: "23/02/2001 15:35:47",
+      },
+      rules = {
+        input: "type=date;alias=fecha",
+      },
+      customErrorMessages = null;
+
+    const validatorResult = validator(params, rules, customErrorMessages);
+    expect(validatorResult).toMatchObject(successfullResult);
+  });
+});
+
+describe("check in input", () => {
+  test("check required;type=string;in=hola|chao|adios;alias=mensaje", () => {
+    const params = {
+        stringInput: "Hola",
+      },
+      rules = {
+        stringInput: "required;type=string;in=hola|chao|adios;alias=mensaje",
+      },
+      customErrorMessages = null;
+
+    const validatorResult = validator(params, rules, customErrorMessages);
+    // console.log({ validatorResult });
+    expect(validatorResult).toMatchObject(successfullResult);
+  });
+  test("check required;type=string;in=hola|chao|adios;alias=mensaje", () => {
+    const params = {
+        stringInput: "Hola mundo",
+      },
+      rules = {
+        stringInput: "required;type=string;in=hola|chao|adios;alias=mensaje",
+      },
+      customErrorMessages = null;
+    const expectedResult = {
+      messages: {
+        stringInput: "El valor ingresado para mensaje no es el correcto.",
+      },
+      keys: ["stringInput"],
+      success: false,
+    };
+
+    const validatorResult = validator(params, rules, customErrorMessages);
+    // console.log({ validatorResult });
+    expect(validatorResult).toMatchObject(expectedResult);
+  });
+});
