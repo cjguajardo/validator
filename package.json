@@ -1,9 +1,8 @@
 {
   "name": "cgc-validator",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Input validator",
   "main": "index.js",
-  "type":"module",
   "scripts": {
     "test": "jest"
   },
